@@ -1,0 +1,288 @@
+
+:root{
+  --bg:#0d0e12;
+  --glass:#ffffff22;
+  --glass-2:#ffffff14;
+  --text:#f6f7fb;
+  --muted:#b9bdd6;
+  --rose:#ff3b7b;
+  --gold:#ffd166;
+  --accent:#ffd591;
+  --shadow: 0 10px 40px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+html{ -webkit-text-size-adjust: 100% }
+body{
+  margin:0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  color:var(--text);
+  background: radial-gradient(1200px 600px at 20% -10%, #1a1930, transparent),
+              radial-gradient(800px 400px at 80% 0%, #281a2f, transparent),
+              linear-gradient(160deg, #0a0b10, #0f1016 40%, #0a0a0e);
+  overflow-x:hidden;
+  -webkit-overflow-scrolling: touch;
+  touch-action: manipulation;
+}
+
+.hidden{display:none}
+.center{display:grid;place-items:center;min-height:100svh;padding:32px}
+
+/* Background */
+.bg-orbs .orb{
+  position:fixed; filter:blur(36px); opacity:.5; border-radius:50%;
+  animation: float 12s ease-in-out infinite alternate;
+  will-change: transform;
+  pointer-events:none;
+}
+.o1{ width:420px; height:420px; background:#ff7aa8; top:10%; left:-6% }
+.o2{ width:520px; height:520px; background:#ffd591; bottom:-6%; right:-8%; animation-duration:14s }
+.o3{ width:360px; height:360px; background:#c3f584; bottom:20%; left:30%; animation-duration:16s }
+@keyframes float{ to{ transform: translate3d(20px, -30px, 0) } }
+.stars{ position:fixed; inset:0; pointer-events:none; opacity:.35 }
+
+/* iPhone lock screen */
+.iphone{
+  position:relative; width:min(92vw,380px); aspect-ratio: 9/19.5;
+  border-radius:32px; background: linear-gradient(180deg, #ffffff22, #ffffff08);
+  border:1px solid #ffffff28; box-shadow: var(--shadow);
+  overflow:hidden; backdrop-filter: blur(10px);
+  transform: translateZ(0);
+}
+.notch{
+  position:absolute; top:0; left:50%; transform: translateX(-50%);
+  width:40%; height:28px; background: #000; border-bottom-left-radius:14px; border-bottom-right-radius:14px;
+  opacity:.6; z-index:3;
+}
+.glass{
+  position:absolute; inset:12px; border-radius:26px;
+  background: linear-gradient(180deg, #ffffff26, #ffffff10);
+  border:1px solid #ffffff38; padding:22px; display:flex; flex-direction:column; gap:20px;
+  backdrop-filter: blur(12px);
+}
+.lock-info{ text-align:center; margin-top: 6px }
+.lock-time{ font-size:42px; font-weight:800; letter-spacing:.5px }
+.lock-date{ font-size:14px; color:var(--muted) }
+.lock-title{ text-align:center; margin-top:6px; font-weight:600; letter-spacing:.6px }
+.dots{ display:flex; gap:10px; justify-content:center; margin-top: -6px }
+.dots span{
+  width:12px; height:12px; border-radius:50%; background:#ffffff22; border:1px solid #ffffff50;
+  box-shadow: inset 0 0 0 2px #00000020;
+}
+.dots span.filled{ background:#ffffffee }
+
+.keypad{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:8px
+}
+.keypad button{
+  -webkit-tap-highlight-color: transparent;
+  padding:14px 0; border-radius:50%;
+  background: #ffffff18; border:1px solid #ffffff35; color:#fff; font-weight:600; font-size:18px;
+  backdrop-filter: blur(8px);
+  transition: transform .06s ease, background .2s ease;
+  cursor:pointer;
+  touch-action: manipulation;
+}
+.keypad button:active{ transform: scale(.96) }
+.keypad .key-aux{ border-radius:16px; font-size:14px }
+
+.hint{ text-align:center; font-size:12px; color:#ffffff90; margin-top:6px }
+
+/* Top bar */
+.topbar{
+  position:sticky; top:0; z-index:50;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:16px 20px; background: linear-gradient(180deg, #0a0b10ee, #0a0b10c0 50%, transparent);
+  backdrop-filter: blur(8px);
+}
+.brand{ display:flex; gap:10px; align-items:center }
+.logo{ width:28px; height:28px; display:grid; place-items:center; border-radius:9px; background:linear-gradient(135deg,#ff7aa8,#ffd591); box-shadow: var(--shadow) }
+.wordmark{ font-weight:800; letter-spacing:.3px }
+
+/* Cards + hero */
+.card{
+  background: linear-gradient(180deg, #ffffff18, #ffffff0c);
+  border:1px solid #ffffff28; border-radius:24px; padding:22px; box-shadow: var(--shadow);
+  backdrop-filter: blur(8px);
+  will-change: transform;
+}
+.hero{ margin:26px auto; max-width:980px; text-align:center }
+.script{ font-family: "Great Vibes", cursive; font-size:52px; margin:0 }
+.subtitle{ margin-top:8px; color:var(--muted) }
+.countup{ margin-top:16px; font-weight:600; font-size:20px }
+
+.grid{
+  display:grid; gap:20px; grid-template-columns: 1.2fr .8fr;
+  padding: 0 20px; max-width: 1100px; margin: 0 auto 36px;
+}
+@media (max-width: 900px){ .grid{ grid-template-columns:1fr } }
+
+.poem-pane .tag{ color:var(--gold); margin-top:-6px; margin-bottom:12px }
+.poem{ font-family: "Playfair Display", serif; font-size:18px; line-height:1.7; min-height: 220px }
+.poem .line{
+  opacity:0; transform: translateY(8px);
+  animation: lineIn .7s ease forwards;
+}
+@keyframes lineIn{ to{ opacity:1; transform:none } }
+.poem-meta{ display:flex; justify-content:space-between; margin-top:12px; color:var(--muted); font-size:14px }
+
+.quote-pane blockquote{ font-size:18px; line-height:1.6; margin:0 }
+.quote-pane .quote-dash{ margin: 0 6px }
+.nicknames{ margin-top:16px }
+.marquee{ white-space:nowrap; overflow:hidden; mask: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent) }
+.marquee::after{ content: attr(data-text); padding-left: 40px }
+.marquee{ display:block; animation: scroll 18s linear infinite }
+@keyframes scroll{ to{ transform: translateX(-50%) } }
+
+.foot{ text-align:center; color:var(--muted); margin: 40px 0 30px }
+
+/* 3D tilt — disabled on touch devices */
+.tilt{ transform-style: preserve-3d }
+@media (hover: none), (pointer: coarse){
+  .tilt{ transform: none !important }
+}
+
+/* Themes */
+.theme-moon .hero{ background: linear-gradient(180deg, #a4b1ff16, #d2d9ff0a) }
+.theme-rose .poem-pane{ border-color:#ff8cb4; }
+.theme-sand .hero, .theme-sand .poem-pane{ background:linear-gradient(180deg,#ffd16622,#ffd16608) }
+.theme-ink .poem{ color:#f0f3ff }
+.theme-velvet .hero{ background:linear-gradient(180deg,#ff7aa816,#ff3b7b0a) }
+
+/* Reduce motion preference */
+@media (prefers-reduced-motion: reduce){
+  .orb, .marquee{ animation: none }
+  .poem .line{ animation-duration: .01s }
+}
+
+/* Mobile-friendly viewport units and smooth scrolling */
+html{ scroll-behavior:smooth }
+.center{ min-height: 100svh } /* dynamic mobile vh to avoid jump on iOS URL bar */
+
+/* Reduce jank on mobile */
+*{ -webkit-tap-highlight-color: transparent }
+@media (pointer:coarse){
+  .tilt{ transform:none !important }
+}
+
+/* More iPhone-like details */
+.iphone{
+  background: linear-gradient(180deg, #fefefe22, #d9d9d908);
+  border: 1px solid #ffffff30;
+  box-shadow: 0 12px 60px rgba(0,0,0,.45), inset 0 0 0 1px #ffffff24;
+}
+.iphone::before{
+  content:""; position:absolute; inset:0; border-radius:32px;
+  background: radial-gradient(40% 20% at 50% 0%, #ffffff55, transparent 60%);
+  pointer-events:none;
+}
+.iphone .side-btn{
+  position:absolute; right:-4px; top:22%; width:3px; height:48px; border-radius:3px;
+  background:#777; opacity:.6
+}
+
+/* Prevent body reflow glitching while scrolling on mobile */
+body{ overscroll-behavior-y:none; -webkit-overflow-scrolling: touch }
+
+.keypad button{ touch-action: manipulation }
+
+/* ===== iOS Passcode Lock ===== */
+.lock-screen{
+  position: fixed; inset: 0; z-index: 9999;
+  display: grid; grid-template-rows: auto 1fr;
+  background: transparent;
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  touch-action: manipulation;
+}
+.lock-screen .blur-overlay{
+  position:absolute; inset:0;
+  background: radial-gradient(140% 100% at 50% 0%, #00000066, #000000b0 60%, #000000ef);
+  pointer-events:none;
+}
+.statusbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 10px 14px; color:#fff; font-size: 12px; opacity:.9;
+  text-shadow: 0 1px 2px rgba(0,0,0,.5);
+}
+.statusbar .dots{ letter-spacing:1px; margin-right:6px }
+.statusbar .wifi{ opacity:.7; margin-left:6px }
+.statusbar .battery{ margin-right:6px }
+
+.lock-body{
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap: 14px; padding: 8px 14px 28px;
+}
+.passcode-title{ font-weight:600; letter-spacing:.3px; font-size: 18px; margin-bottom:6px }
+.passcode-dots{ display:flex; gap:12px; margin-bottom: 6px }
+.passcode-dots span{
+  width:12px; height:12px; border-radius:50%;
+  border: 2px solid #ffffffaa; background: transparent;
+  box-shadow: 0 0 0 2px #00000055 inset;
+}
+.passcode-dots span.filled{ background:#ffffff; }
+
+.keypad{
+  width: min(92vw, 420px);
+  display:grid; grid-template-columns: repeat(3, 1fr);
+  gap: 14px; margin-top: 8px; user-select:none;
+}
+.keypad .spacer{ height: 1px; visibility:hidden }
+.keypad button{
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  border: none;
+  height: clamp(66px, 10svh, 86px);
+  border-radius: 999px;
+  background: radial-gradient(100% 100% at 50% 30%, #ffffff22 0%, #ffffff08 60%, #00000044 100%);
+  color:#fff; cursor:pointer;
+  outline:none;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  box-shadow: 0 8px 24px rgba(0,0,0,.45), inset 0 0 0 1px #ffffff22;
+}
+.keypad button::after{
+  content:""; position:absolute; inset:-1px;
+  border-radius:inherit;
+  background: radial-gradient(120% 120% at 50% 0%, #ffb6c142, transparent 55%), radial-gradient(120% 120% at 50% 100%, #ffd59142, transparent 55%);
+  opacity:.7; pointer-events:none;
+}
+.keypad .num{ font-size: 28px; font-weight:700; line-height:1 }
+.keypad .abc{ font-size: 10px; opacity:.75; margin-top: 2px; letter-spacing: 1.2px }
+.keypad .zero{ grid-column: 2 / span 1 }
+
+.cancel{
+  margin-top: 8px; align-self: flex-end;
+  background: transparent; border: none; color: #ffffffcc; font-size: 16px;
+  padding: 12px 18px; -webkit-tap-highlight-color: transparent;
+}
+/* Press ripple + spring handled in JS; also provide a quick active state */
+.keypad button:active{ transform: scale(.98) }
+
+body.no-scroll{height:100svh; overflow:hidden}
+
+/* ===== Love Underlay (rose bouquet + hearts) ===== */
+.love-underlay{ position:fixed; inset:0; z-index:-1; overflow:hidden }
+.rose-wallpaper{
+  position:absolute; inset:-6%; background:
+    radial-gradient(60% 80% at 70% 10%, #ffb3c6 10%, transparent 60%),
+    radial-gradient(50% 70% at 20% 30%, #ffc2d1 8%, transparent 55%),
+    radial-gradient(40% 60% at 80% 70%, #ffe5ec 8%, transparent 55%),
+    linear-gradient(160deg, #3a0a1a, #140910 50%, #1a0d14);
+  filter: blur(26px) saturate(120%);
+  background-size: cover;
+  background-position: center;
+}
+/* If user adds assets/rose-wallpaper.jpg, show it blurred under the gradients */
+.rose-wallpaper.has-photo{
+  background-image: url('assets/rose-wallpaper.jpg'), radial-gradient(60% 80% at 70% 10%, #ffb3c6 10%, transparent 60%), radial-gradient(50% 70% at 20% 30%, #ffc2d1 8%, transparent 55%), radial-gradient(40% 60% at 80% 70%, #ffe5ec 8%, transparent 55%), linear-gradient(160deg, #3a0a1a, #140910 50%, #1a0d14);
+  filter: blur(20px) brightness(0.9) saturate(125%);
+}
+.love-underlay .tint{
+  position:absolute; inset:0;
+  background: radial-gradient(140% 100% at 50% 0%, #13070bcc, #0a0507f0 60%, #09060a);
+  mix-blend-mode: screen; pointer-events:none;
+}
+#hearts{ position:absolute; inset:0; width:100%; height:100%; opacity:.35 }
+
+body{ transition: background 1.2s ease }

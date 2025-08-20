@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Kulsum — Love</title>
+  <meta name="description" content="A love-themed site for Kulsum: poems, quotes, a countup of our days, and an iOS-style passcode lock." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%96%3C/text%3E%3C/svg%3E" />
+  <link rel="preload" as="audio" href="assets/music.mp3">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,500;0,700;1,600&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  
+  <!-- Love Underlay: blurred rose bouquet + animated hearts -->
+  <div class="love-underlay" aria-hidden="true">
+    <div class="rose-wallpaper"></div>
+    <canvas id="hearts"></canvas>
+    <div class="tint"></div>
+  </div>
+
+    <div class="orb o2"></div>
+    <div class="orb o3"></div>
+    <div class="stars"></div>
+  </div>
+  
+  <!-- Lock Screen -->
+  
+  <!-- Lock Screen (iOS-style, fullscreen) -->
+  <main id="lock" class="lock-screen" role="dialog" aria-modal="true" aria-label="Passcode screen">
+    <div class="statusbar">
+      <div class="left">
+        <span class="dots">●●●●</span>
+        <span class="carrier">Verizon</span>
+        <span class="wifi">▔▔▔</span>
+      </div>
+      <div class="right">
+        <span class="battery">71%</span>
+        <span class="battery-icon">🔋</span>
+      </div>
+    </div>
+    <div class="lock-body">
+      <div class="lock-clock" id="lockClock">12:34</div>
+      <div class="passcode-title">Enter Passcode</div>
+      <div class="passcode-dots" id="dots"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="keypad" role="group" aria-label="passcode keypad">
+        <button data-digit="1"><span class="num">1</span><span class="abc"></span></button>
+        <button data-digit="2"><span class="num">2</span><span class="abc">ABC</span></button>
+        <button data-digit="3"><span class="num">3</span><span class="abc">DEF</span></button>
+        <button data-digit="4"><span class="num">4</span><span class="abc">GHI</span></button>
+        <button data-digit="5"><span class="num">5</span><span class="abc">JKL</span></button>
+        <button data-digit="6"><span class="num">6</span><span class="abc">MNO</span></button>
+        <button data-digit="7"><span class="num">7</span><span class="abc">PQRS</span></button>
+        <button data-digit="8"><span class="num">8</span><span class="abc">TUV</span></button>
+        <button data-digit="9"><span class="num">9</span><span class="abc">WXYZ</span></button>
+        <div class="spacer"></div>
+        <button data-digit="0" class="zero"><span class="num">0</span><span class="abc"></span></button>
+        <div class="spacer"></div>
+      </div>
+      <button class="cancel" data-action="clear">Cancel</button>
+    </div>
+    <div class="blur-overlay"></div>
+  </main>
+
+
+  <!-- Main App -->
+  <section id="app" class="hidden">
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo">♥</span>
+        <span class="wordmark">Kulsum</span>
+      </div>
+    </header>
+
+    <div class="hero card tilt">
+      <h1 class="script">Beloved Kulsum</h1>
+      <p class="subtitle">Every heartbeat since <strong>13 December 2024</strong>.</p>
+      <div id="countup" class="countup" aria-live="polite"></div>
+    </div>
+
+    <div class="grid">
+      <article class="card tilt poem-pane">
+        <h2>Poem of the Day</h2>
+        <p class="tag" id="styleTag">—</p>
+        <div id="poem" class="poem" aria-live="polite"></div>
+        <footer class="poem-meta">
+          <span id="nicknameTag"></span>
+          <time id="poemDate"></time>
+        </footer>
+      </article>
+
+      <aside class="card tilt quote-pane">
+        <h2>Quote of the Day</h2>
+        <blockquote id="quote"><span class="quote-text">Loading…</span><span class="quote-dash">—</span><cite class="quote-author"></cite></blockquote>
+        <div class="nicknames">
+          <h3>Her Names</h3>
+          <p id="nickScroller" class="marquee" aria-label="Nicknames scroller"></p>
+        </div>
+      </aside>
+    </div>
+
+    <footer class="foot">
+      <p>Made with devotion. <span class="year" id="year"></span></p>
+    </footer>
+  </section>
+
+  <audio id="bgm" src="assets/music.mp3" preload="auto"></audio>
+  <script>
+    window.KULSUM = {
+      PASSCODE: "130206",
+      START_DATE_ISO: "2024-12-13T00:00:00",
+      NICKNAMES: ["Darling", "Sweetheart", "Honey", "Baby", "Angel", "Sunshine", "Babe", "Princess", "Prince", "Habibi", "Habibti", "Hayati", "Rohi", "Albi", "Omri", "Gamar", "Nour", "Aroos", "Aroosa", "Helwa", "Askim", "Sevgilim", "Canim", "Hayatim", "G\u00f6zbebe\u011fim", "Tatlim", "Melegim", "G\u00fczelim", "Balim", "Kuzum", "Jaan", "Meri Jaan", "Dilruba", "Sanam", "Gul", "Chand", "Pari", "Shehzadi", "Mehboob", "Mehbooba", "Mera Ishq", "Meri Mohabbat", "Mera Dil", "Meri Rooh", "Meri Duniya", "Mera Noo"],
+      THEMES: ["theme-moon","theme-rose","theme-sand","theme-ink","theme-velvet"]
+    };
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
